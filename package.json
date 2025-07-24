@@ -6,7 +6,7 @@
   "scripts": {
     "process-images": "node scripts/process-images.js",
     "copy-images": "node scripts/copy-images.js",
-    "dev": "npm run copy-images && vite",
+    "dev": "npm run copy-images && vite --port 5174",
     "build": "npm run copy-images && vite build",
     "preview": "vite preview",
     "check": "tsc",

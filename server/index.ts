@@ -1,6 +1,11 @@
 import express, { type Request, Response, NextFunction } from "express";
+import path from "path";
 import { registerRoutes } from "./routes";
+import { fileURLToPath } from 'url';
 import { setupVite, serveStatic, log } from "./vite";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(express.json());
@@ -56,10 +61,13 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
+  // Serve static files from public directory in development
+  app.use(express.static(path.join(__dirname, '../public')));
+
   // ALWAYS serve the app on port 5000
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
-  const port = 5000;
+  const port = 3000;
   server.listen({
     port,
     host: "0.0.0.0",

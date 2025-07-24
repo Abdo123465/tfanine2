@@ -17,17 +17,24 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
 }) => {
   const [error, setError] = useState(false);
 
-  // تحويل مسار الصورة إلى المسار الصحيح
+  // تحويل مسار الصورة إلى المسار الصحيح مع دعم لمسارات attached_assets
   const normalizedSrc = (() => {
     try {
+      // إذا كان المسار يحتوي على attached_assets، نستخدم مسار خدمة مباشر
+      if (src.includes('attached_assets')) {
+        return `/public/images/${src.split('/').pop()}`;
+      }
+      
+      // معالجة المسارات النسبية وال절ية
       if (src.startsWith('/')) {
         return `/images/${src.split('/').pop()}`;
       } else if (src.startsWith('./assets/')) {
         return `/images/${src.split('/').pop()}`;
       }
+      
       return src;
     } catch (err) {
-      console.error('Error processing image path:', err);
+      console.error('Error processing image path:', { originalSrc: src, error: err });
       return fallbackSrc;
     }
   })();

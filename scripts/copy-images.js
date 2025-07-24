@@ -7,9 +7,9 @@ const __dirname = path.dirname(__filename);
 
 // تحديد المسارات
 const sourceDir = path.resolve(__dirname, '../attached_assets');
-const publicDir = path.resolve(__dirname, '../client/public/images');
-const clientPublicDir = path.resolve(__dirname, '../client/public/images');
-const distDir = path.resolve(__dirname, '../dist/images');
+    const publicDir = path.resolve(__dirname, '../public/images');
+    const clientPublicDir = path.resolve(__dirname, '../public/images');
+    const distDir = path.resolve(__dirname, '../dist/images');
 
 // التأكد من وجود المجلدات
 async function ensureDirectoryExists(dir) {
@@ -67,14 +67,16 @@ async function copyFiles(source, dest) {
     
     // نسخ كل ملف
     for (const file of files) {
-        const sourceFile = path.join(source, file);
-        const newFileName = fileMapping[file] || file;
-        const destFile = path.join(dest, newFileName);
+        const newFileName = fileMapping[file];
+        if (newFileName) {
+            const sourceFile = path.join(source, file);
+            const destFile = path.join(dest, newFileName);
 
-        // نسخ الملف فقط إذا كان صورة
-        if (file.match(/.(jpg|jpeg|png|gif)$/i)) {
-            await fs.copyFile(sourceFile, destFile);
-            console.log(`تم نسخ الملف: ${file} -> ${newFileName}`);
+            // نسخ الملف فقط إذا كان صورة
+            if (file.match(/.(jpg|jpeg|png|gif)$/i)) {
+                await fs.copyFile(sourceFile, destFile);
+                console.log(`تم نسخ الملف: ${file} -> ${newFileName}`);
+            }
         }
     }
 }

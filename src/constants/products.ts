@@ -5,7 +5,7 @@ export const PRODUCTS: Product[] = [
     id: 'hello-spiral-notebook-200-a4',
     name: 'كشكول سلك 4 فواصل 200 A4 Hello',
     nameEn: 'Hello Spiral Notebook 4 Dividers 200 A4',
-    price: 170,
+    price: 130,
     image: '/lovable-uploads/be84f29a-d7f3-4b3d-840c-46189a1fb33a.png',
     images: [
       '/lovable-uploads/be84f29a-d7f3-4b3d-840c-46189a1fb33a.png',
